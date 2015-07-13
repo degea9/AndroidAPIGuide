@@ -28,6 +28,7 @@ import android.widget.ListView;
 public  class CursorLoaderListFragment extends ListFragment
         implements SearchView.OnQueryTextListener, SearchView.OnCloseListener,
         LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String TAG =  CursorLoaderListFragment.class.getSimpleName();
 
     // This is the Adapter being used to display the list's data.
     SimpleCursorAdapter mAdapter;
@@ -56,7 +57,7 @@ public  class CursorLoaderListFragment extends ListFragment
         setListAdapter(mAdapter);
 
         // Start out with a progress indicator.
-        setListShown(false);
+        setListShown(true);
 
         // Prepare the loader.  Either re-connect with an existing one,
         // or start a new one.
@@ -137,6 +138,7 @@ public  class CursorLoaderListFragment extends ListFragment
     };
 
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.e(TAG,"onCreateLoader");
         // This is called when a new Loader needs to be created.  This
         // sample only has one Loader, so we don't care about the ID.
         // First, pick the base URI to use depending on whether we are
@@ -160,6 +162,7 @@ public  class CursorLoaderListFragment extends ListFragment
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.e(TAG,"onLoadFinished");
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)
         mAdapter.swapCursor(data);
@@ -173,6 +176,7 @@ public  class CursorLoaderListFragment extends ListFragment
     }
 
     public void onLoaderReset(Loader<Cursor> loader) {
+        Log.e(TAG,"onLoaderReset");
         // This is called when the last Cursor provided to onLoadFinished()
         // above is about to be closed.  We need to make sure we are no
         // longer using it.
